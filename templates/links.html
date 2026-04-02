@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Все ссылки • URL Shortener</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="badge">Links Dashboard</div>
+      <h1>Все сокращённые ссылки</h1>
+      <p class="subtitle">
+        Здесь отображаются все ссылки, которые были сохранены в базе данных.
+      </p>
+
+      <div class="hero-actions">
+        <a class="secondary-button" href="/">На главную</a>
+      </div>
+    </section>
+
+    <section class="card shortener-card">
+      <h2 style="margin-bottom: 20px;">Список ссылок</h2>
+
+      {% if links %}
+      <div style="overflow-x: auto;">
+        <table style="
+          width: 100%;
+          border-collapse: collapse;
+          overflow: hidden;
+          border-radius: 18px;
+          background: rgba(8, 13, 28, 0.42);
+        ">
+          <thead>
+            <tr style="background: rgba(124, 156, 255, 0.12);">
+              <th style="text-align: left; padding: 16px;">ID</th>
+              <th style="text-align: left; padding: 16px;">Original URL</th>
+              <th style="text-align: left; padding: 16px;">Short URL</th>
+              <th style="text-align: left; padding: 16px;">Clicks</th>
+              <th style="text-align: left; padding: 16px;">Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for link in links %}
+            <tr style="border-top: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 16px;">{{ link.id }}</td>
+
+              <td style="padding: 16px; max-width: 320px; word-break: break-word;">
+                <a
+                  href="{{ link.original_url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="color: #dce5ff; text-decoration: none;"
+                >
+                  {{ link.original_url }}
+                </a>
+              </td>
+
+              <td style="padding: 16px; max-width: 260px; word-break: break-word;">
+                <a
+                  href="{{ request.base_url }}{{ link.short_code }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="color: #7c9cff; font-weight: 700; text-decoration: none;"
+                >
+                  {{ request.base_url }}{{ link.short_code }}
+                </a>
+              </td>
+
+              <td style="padding: 16px;">{{ link.click_count }}</td>
+              <td style="padding: 16px;">
+                {% if link.created_at %}
+                  {{ link.created_at.strftime("%d.%m.%Y %H:%M") }}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="result-box">
+        <p class="result-label">Пока ссылок нет</p>
+        <div class="result-link">Создай первую короткую ссылку на главной странице</div>
+      </div>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

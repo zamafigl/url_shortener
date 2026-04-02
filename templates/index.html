@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="badge">DevOps Project • FastAPI • Docker • Postgres</div>
+      <h1>Сократи ссылку быстро и удобно</h1>
+      <p class="subtitle">
+        Простой сервис для создания коротких ссылок, редиректа и хранения ссылок в базе данных.
+      </p>
+
+      <div class="hero-actions">
+        <a class="secondary-button" href="/links-page">Все ссылки</a>
+      </div>
+    </section>
+
+    <section class="card shortener-card">
+      <h2>Создать короткую ссылку</h2>
+
+      <form class="shortener-form" id="shortener-form">
+        <label for="url">Вставь длинную ссылку</label>
+        <div class="input-row">
+          <input
+            type="text"
+            id="url"
+            name="url"
+            placeholder="example.com или https://example.com/very/long/url"
+            required
+          />
+          <button type="submit">Сократить</button>
+        </div>
+      </form>
+
+      <div class="result-box" id="result-box">
+        <p class="result-label">Короткая ссылка появится здесь</p>
+        <div class="result-actions">
+          <div class="result-link" id="result-link">Пока ничего нет</div>
+          <button type="button" class="copy-button" id="copy-button" hidden>
+            Скопировать
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <h3>Быстро</h3>
+        <p>Создание короткой ссылки в пару секунд без лишней ерунды.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Просто</h3>
+        <p>Минималистичный интерфейс, который не мешает пользоваться сервисом.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Нормальная база</h3>
+        <p>Ссылки сохраняются в Postgres и не пропадают после перезапуска приложения.</p>
+      </div>
+    </section>
+
+    <section class="card api-card">
+      <h2>Что умеет сервис</h2>
+      <ul>
+        <li><code>GET /health</code> — проверка жизни сервиса</li>
+        <li><code>POST /shorten</code> — создать короткую ссылку</li>
+        <li><code>GET /links</code> — список всех ссылок в JSON</li>
+        <li><code>GET /links-page</code> — HTML-страница со списком ссылок</li>
+        <li><code>GET /{code}</code> — редирект по короткому коду</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
